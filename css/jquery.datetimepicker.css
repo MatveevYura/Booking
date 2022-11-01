@@ -54,6 +54,7 @@
 }
 
 .xdsoft_datetimepicker.xdsoft_inline {
+  width: 360px;
   display: flex;
   /*display: inline-block;  Split */
   margin-top: 50px;
@@ -76,11 +77,12 @@
     display: none;
   }
   .xdsoft_datetimepicker.xdsoft_inline {
-    /*width: fit-content;*/
+    width: 93vw;
     margin-top: 0;
     margin-bottom: 20px;
   }
 }
+
 
 .xdsoft_datetimepicker * {
   -moz-box-sizing: border-box;

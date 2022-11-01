@@ -704,7 +704,7 @@ height: auto;
 }
 
 .fifth {
-  width: 75vw;
+  width: 100%;
   margin: 0;
 
 }
@@ -744,6 +744,8 @@ height: auto;
 
   .fifth .divblock-bg {
     padding: 20px 0 29px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .share-widget .sixthdiv{
@@ -809,6 +811,17 @@ height: auto;
   /*.sixthdiv .divblock__box>div {*/
   .sixthdiv-mobile .divblock__box>div, .sixthdiv-referral-mobile .divblock__box>div, .sixthdiv-summary .divblock__box>div, .sixthdiv .divblock__box>div, .sixthdiv-referral .divblock__box>div {
   
+    flex-direction: column;
+  }
+}
+
+.divblock-bg .container-fluid .row{
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 991px) {
+  .divblock-bg .container-fluid .row{
     flex-direction: column;
   }
 }
