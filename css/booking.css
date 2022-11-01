@@ -1,0 +1,43 @@
+.xdsoft_datepicker {
+  width: 98% !important;
+  /*width: 351px !important; */
+}
+
+.xdsoft_calendar table,
+.xdsoft_time_box {
+  /*height: 200px !important;*/
+}
+
+/*.xdsoft_date :not(.xdsoft_disabled) {
+        background-color: #ABC;
+    }
+*/
+
+/*.xdsoft_timepicker {
+        width: 101px !important; 
+    }*/
+.xdsoft_time {
+  height: 35px !important; /*adjust accordingly*/
+  /*border-left: 1px solid #ddd;*/
+  border-right: 2px solid #ddd;
+  margin-left: inherit;
+}
+
+/*.xdsoft_time {
+        background-color:#ccffcc !important;
+    }
+
+    .xdsoft_time.xdsoft_current {
+        background-color: #33aaff !important;
+    }*/
+
+.xdsoft_time.xdsoft_disabled {
+  background-color: #fff !important;
+  /*background-color:#ffcccc !important;*/
+}
+
+.xdsoft_datetimepicker {
+  /*border-radius: 10px;*/
+  box-shadow: -9px 8px 18px rgba(96, 196, 199, 0.13) !important;
+  border-radius: 5px;
+}

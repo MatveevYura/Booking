@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Prendre rendez-vous en ligne chez Biocoiff'</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+  <!-- <meta property="og:image" content="https://biocoiff.com/booking_module/img/image1.png"> -->
+  <meta property="og:image" content="https://crm.biocoiff.com/test/upload/images/logo_retina.png">
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css" />
+  <link rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link rel="stylesheet" type="text/css" href="css/booking.css" />
+  <link rel="stylesheet" type="text/css" href="css/index_css_2.css" />
+
+  <script type="text/javascript" src="js/WSClient.js"></script>
+  <script type="text/javascript" src="js/md5.js"></script>
+  <!-- <script src="jquery.datetimepicker.js"></script> -->
+  <script type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+  <script type="text/javascript" src="js/uijs1.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/global1.css" />
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+  <script src="js/js_client.js" defer></script>
+
+  <!-- Hotjar Tracking Code for https://www.biocoiff.com/booking_module/ -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 2910736, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
+
+
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-596Q7D');</script>
+  <!-- End Google Tag Manager -->
+
+</head>
+
+
+
+<!-- <body style="background:url('https://www.biocoiff.com/booking4_12_2020/img/bg.png');"> -->
+
+<body style="background:url('https://www.biocoiff.com/booking_module/img/bg.png');">
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-596Q7D" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="main-content-size" class="container-fluid" style="display: flex; align-items: center">
+
+    <input type="hidden" name="custom_time_flag" id="custom_time_flag">
+
+    <input type="hidden" name="referal_code" id="referal_code">
+    <input type="hidden" name="get_referal_code" id="get_referal_code">
+    <input type="hidden" name="booking_link" id="booking_link">
+
+    <input type="hidden" name="booking_btn" id="booking_btn">
+
+    <input type="hidden" name="customer_id" id="customer_id">
+    <input type="hidden" name="payment_id" id="payment_id">
+    <input type="hidden" name="paymentid" id="paymentid">
+    <input type="hidden" name="saloon_id" id="saloon_id">
+    <input type="hidden" name="stripe_flag" id="stripe_flag">
+    <input type="hidden" name="stripe_btn" id="stripe_btn">
+
+    <input type="hidden" name="reset_flag" id="reset_flag" value="reset_flag">
+
+    <div class="modal fade" id="resetModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-body">
+            <p>Le créneau que vous avez sélectionné a été réservé par un(e) autre client(e). Nous vous invitons à
+              sélectionner un autre créneau.</p>
+            <div style="float: right;"><a type="button" class="btn btn-default reset_msg"
+                style="background-color: #60c4c7; color: white;">OK</a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="firstdiv divblock divblock-bg" tabindex="-1" style="text-align: center;">
+      <h1 style="font-family: MontserratBold">Hello par ici&nbsp;&nbsp;!</h1>
+      <h2>Avez-vous déjà une fiche cliente ?</h2>
+      <button type="button" tabindex="1" id="yes" aria-label="yes" style="margin-right: 9px"
+        class="btn mt-3">Oui</button>
+      <button type="button" tabindex="2" id="no" aria-label="no" style="margin-left: 9px" class="btn mt-3">Non</button>
+    </div>
+
+    <div class="seconddiv divblock divblock-bg" style="display: none;">
+      <h3>Email</h3>
+      <div class="row">
+        <div class="col-sm-12 input-box">
+          <input type="text" class="form-control" id="emailtocheck" placeholder="Entrez votre adresse mail"
+            name="emailtocheck" required>
+          <span class="emailtocheck"></span>
+
+          <span class="emailsendcodenot" style="display: none;"><br>
+            <h3>Un code vous a été envoyé par mail</h3>
+          </span>
+
+        </div>
+
+        <div class="col-sm-12 input-box">
+          <input type="text" class="form-control" id="email_otp" placeholder="Veuillez entrer le code reçu par mail"
+            name="email_otp" style="display: none;">
+
+          <input type="hidden" name="otp_record" id="otp_record">
+          <span class="inv_otp_email" style="color: #ff0000; font-family: Arial, Helvetica, sans-serif;"></span>
+        </div>
+
+        <div class="col-sm" style="display: flex; justify-content: center">
+          <button type="button" id="email_to_check" class="btn">Vérifier</button>
+          <button type="button" id="email_otp_check" class="btn" style="display: none;">Confirmer</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="seconddiv2 divblock divblock-bg" style="display: none;">
+      <h4><b style="color: #ff0000; font-family: Arial, Helvetica, sans-serif;">Nous n'avons trouvé aucun profil client
+          avec cette adresse e-mail</b></h4><br>
+      <h5>
+        <p>Veuillez saisir votre prénom et votre numéro de téléphone</p>
+      </h5>
+      <div class="row">
+        <div class="col-sm-12 input-box">
+          <input type="text" class="form-control" id="firstname_to_check" placeholder="Entrez votre prénom"
+            name="firstname_to_check">
+          <span class="firstname_to_check"></span>
+        </div>
+        <div class="col-sm-12 input-box">
+          <input type="tel" class="form-control" id="phone_number"
+            placeholder="Entrez votre numéro de téléphone portable" name="phone_number">
+          <span class="phone_number"></span>
+        </div>
+        <div class="col-sm" style="display: flex; justify-content: center">
+          <button type="button" id="firstname_phone_to_check" class="btn btn-success">Vérifier</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="thirddiv divblock divblock-bg" style="text-align: center; display: none;">
+      <div>
+        <h2 class="font-h1">Fiche personnelle trouvée!, <span class="first_name"></span></h2>
+        <div class="divblock__box">
+          <div style="display: flex">
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Informations personnelles</h2> <img
+              src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="divbkock__box-down">
+            <h3 style="display: flex"><span class="identical">Prénom: </span><span class="first_name"></span></h3>
+            <h3 style="display: flex"><span class="identical">Nom: </span><span class="last_name"></span>
+            </h3>
+          </div>
+        </div>
+        <button type="button" id="btn_user_data" class="btn">Suivant</button>
+      </div>
+    </div>
+
+    <div class="fourthdiv_contact_prefill divblock divblock-bg" style="display: none;">
+
+      <div class="cancell_msg"
+        style="border-color: 1px solid red; border-radius: 15px; padding: 5px; background-color: #ffe6e6; display: none;">
+        <h6 style="text-align: center;">Trop de rendez-vous n'ont pas été honorés. Vous ne pouvez actuellement plus
+          prendre de rendez-vous en ligne</h6>
+      </div>
+      <div class="pending_msg"
+        style="border-color: 1px solid red; border-radius: 15px; padding: 5px; background-color: #ffe6e6; display: none;">
+        <h6 style="text-align: center;">Vous avez déjà un rendez-vous planifié. Vous ne pouvez pas prendre 2 rendez-vous
+          au même temps. Veuillez appeler directement le salon de votre choix afin de planifier un nouveau rendez-vous
+        </h6>
+      </div>
+
+      <h2 class="font-h1" style="text-align: center">Fiche personnelle trouvée, <span class="first_name1"></span><span
+          class="first_name"></span></h2>
+      <input type="hidden" name="contact_record_id" id="contact_record_id">
+      <input type="hidden" name="customer_flag" id="customer_flag_old" value="old">
+      <table class="table table-borderless">
+        <!--            <table class="table table-borderless" style="width: 60%;">-->
+        <thead>
+          <th colspan="2" style="text-align: center;">
+            <h2>Informations personnelles</h2>
+          </th>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class=" fieldLabel" style="width:20%">
+              <label>Prénom:</label>
+            </td>
+            <td class=" fieldValue">
+              <!-- <div class="col-lg-12 col-md-12 col-sm-12"> -->
+              <div class="form-group">
+                <input type="text" class="form-control" id="firstname1" name="firstname1" readonly>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr>
+            <td class=" fieldLabel">
+              <label>Nom:</label>
+            </td>
+            <td class=" fieldValue">
+              <!-- <div class="col-lg-12 col-md-12 col-sm-12"> -->
+              <div class="form-group">
+                <input type="text" class="form-control" id="lastname1" name="lastname1" readonly>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class=" fieldLabel">
+              <label>Téléphone portable:</label>
+            </td>
+            <td class=" fieldValue">
+              <!-- <div class="col-lg-12 col-md-12 col-sm-12"> -->
+              <div class="form-group">
+                <input type="tel" class="form-control" id="mobile1" name="mobile1">
+                <span class="mobile1"></span>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+
+          <tr>
+            <td class=" fieldLabel">
+              <label>Email:</label>
+            </td>
+            <td class=" fieldValue">
+              <!-- <div class="col-lg-12 col-md-12 col-sm-12"> -->
+              <div class="form-group">
+                <input type="text" class="form-control" id="email1" name="email1" data-hj-allow>
+                <span class="email1"></span>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+      <button type="button" class="btn contact_create_bt" id="contact_create1">Suivant</button>
+    </div>
+
+    <div class="fourthdiv divblock" style="display: none;">
+      <div class="steps">
+        <div class="line-dots"></div>
+        <ul style="padding-left: 0px; display: flex; justify-content: space-around; margin-top: 1em">
+          <li class="first current" style="list-style: none" aria-disabled="false" aria-selected="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">1</span>
+            </div>
+          </li>
+
+          <li class="disabled" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">2</span>
+            </div>
+          </li>
+
+          <li class="disabled" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">3</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="title-block" style="text-align: center; width: 100%">
+        <h2 class="font-h1">Créer une fiche</h2>
+      </div>
+      <div class="divblock-bg">
+        <input type="hidden" name="customer_flag" id="customer_flag_first" value="first">
+
+        <div class="phn_fname_ch" style="display: none; text-align: center">
+          <h4><b style="color: #ff0000;">Nous n'avons trouvé aucun profil client avec ce prénom et ce numéro de
+              téléphone</b></h4>
+          <h5>
+            <!-- <p>Crea un nuovo contatto</p> -->
+          </h5>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+
+          <div>
+            <div class="fieldLabel">
+              <label>
+                <h3>Prénom *</h3>
+              </label>
+            </div>
+            <div class="fieldValue">
+              <div class="form-group">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom" required>
+                <span class="firstname"></span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="fieldLabel">
+              <label>
+                <h3>Nom de famille *</h3>
+              </label>
+            </div>
+            <div class=" fieldValue">
+              <div class="form-group">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom de famille"
+                  required>
+                <span class="lastname"></span>
+              </div>
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fieldLabel">
+              <label>
+                <h3>Téléphone mobile *</h3>
+              </label>
+            </div>
+            <div class="fieldValue">
+              <div class="form-group">
+                <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Téléphone mobile"
+                  required>
+                <span class="mobile"></span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="fieldLabel">
+              <label>
+                <h3>Email *</h3>
+              </label>
+            </div>
+            <div class="fieldValue">
+              <div class="form-group">
+                <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com"
+                  required data-hj-allow>
+                <span class="email"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center">
+          <button type="button" class="btn contact_create_bt" id="contact_create">Continuer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="fifth_twilio divblock" style="display: none;">
+      <!--    <div class="fifth_twilio divblock divblock-bg" style="padding: 50px 100px; display: none;">-->
+      <div class="steps">
+        <div class="line-dots"></div>
+        <ul style="padding-left: 0px; display: flex; justify-content: space-around; margin-top: 1em">
+          <li class="first current" style="list-style: none" aria-disabled="false" aria-selected="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number"><img src="img/vector.svg" alt="check"></span>
+            </div>
+          </li>
+
+          <li class="disabled current" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number"><img src="img/vector.svg" alt="check"></span>
+            </div>
+          </li>
+
+          <li class="disabled current" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">3</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="title-block" style="text-align: center; width: 100%">
+        <h4 class="font-h1 local_head" style="font-size: 26px;">Dernière étape pour pouvoir valider votre RDV chez
+          Biocoiff'</h4>
+        <h4 class="font-h1 stripe_head" style="font-size: 26px; display: none;">C'est presque fini !</h4>
+      </div>
+
+      <div class="divblock-bg">
+        <div class="divblock-bg__header otp_sms" id="otp_sms">
+          <h3>Un code vous a été envoyé par SMS</h3>
+          <input type="text" class="form-control" id="twilio_otp" placeholder="Entrer le code" name="twilio_otp">
+          <input type="hidden" class="form-control" id="vt_id" name="vt_id">
+          <input type="hidden" class="form-control" id="vt_appt_id" name="vt_appt_id">
+          <span class="inv_otp" style="color: #ff0000; font-family: Arial, Helvetica, sans-serif;"></span>
+
+          <!-- <br> -->
+          <!-- <span class="link_up_phone" style="font-family: MontserratSemiBold; font-size: 16px;"><a id="update_phone_number" href="javascript:void(0);" >Changer de numéro de téléphone ?</a></span> -->
+        </div>
+
+        <br>
+        <div style="display: flex; justify-content: center">
+          <button type="button" id="twilio_check" class="btn">Confirmer</button>
+        </div>
+
+        <div class="divblock-bg__header otp_sms" id="otp_sms1">
+          <br>
+          <span class="link_up_phone" style="font-family: MontserratSemiBold; font-size: 16px;"><a
+              id="update_phone_number" href="javascript:void(0);">Changer de numéro de téléphone ?</a></span>
+        </div>
+
+        <div class="divblock-bg__header phone_num_updation" style="display: none;">
+
+          <label>Téléphone portable :</label>
+          <div class="form-group">
+            <input type="tel" class="form-control" id="new_mobile1" name="new_mobile1">
+            <span class="new_mobile1"></span>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <button type="button" class="btn btn_phone_num_updation" id="btn_phone_num_updation">Suivant</button>
+          </div>
+
+
+        </div>
+
+        <div class="summ_1">
+          <div class="divblock__box">
+            <div style="display: flex">
+              <h2 style="display: flex; align-items: center; padding-right: 10px; justify-content: center">Résumé du RDV
+              </h2>
+              <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+            </div>
+
+            <div style="display: flex">
+              <h6
+                style="display: flex; align-items: center; text-align: center; padding-right: 10px; font-family: MontserratSemiBold; color: #ff4d4d; font-style: italic;">
+                Attention, votre RDV n'est pas encore validé. Voir plus bas.</h6>
+            </div>
+
+            <div class="divbkock__box-down">
+              <h3><span class="identical">Jour: </span><span id="day1"></span></h3>
+              <h3><span class="identical">Date:&nbsp;&nbsp;</span><span id="new_date1"></span></h3>
+              <h3><span class="identical">Horaires:</span><span id="start_time_final1"></span></h3>
+              <h3><span class="identical">Prestation:</span><span id="new_service1"></span></h3>
+              <h3><span class="identical option_sum">Option:</span><span id="new_option1" class="option_sum"></span>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div id="loading1" style="display: none;"><img src="img/loading.gif" alt="" style="width: 100%; height: 120px;">
+        </div>
+        <!-- <div style="display: flex; justify-content: center">
+          <button type="button" id="twilio_check" class="btn">Confirmer</button>
+        </div> -->
+
+        <div class="stripe_payment" style="display: none;">
+
+          <p style="text-align: center;">Réglez de façon sécurisée un acompte de&nbsp;<span id="capture_amount"
+              style="font-weight: bold;"></span><span style="font-weight: bold;">€</span>, qui sera automatiquement
+            déduit en caisse. Le paiement de l'acompte n'est demandé que pour votre première séance.</p>
+          <!-- <p style="text-align: center;"><span style="font-weight: bold;">Ce paiement est 100% sécurisé par Stripe</span></p> -->
+
+
+          <form id="payment-form">
+            <input type="text" id="card-holder-name" placeholder="Bénéficiaire de la carte" />
+            <div id="card-element">
+              <!--Stripe.js injects the Card Element-->
+            </div>
+            <button id="submit">
+              <div class="spinner hidden" id="spinner"></div>
+              <span id="button-text">Payer l'acompte</span>
+            </button>
+            <p id="card-error" role="alert"></p>
+            <p class="result-message hidden">
+              Payment succeeded!!
+            </p>
+          </form>
+          <br>
+          <p style="text-align:center"><img src="img/paiement-securise-par-stripe.png" style="width: 50%"></p>
+
+        </div>
+        <!-- <div id="loading1" style="display: none;"><img src="img/loading.gif" alt="" style="width: 100%; height: 100%;"></div> -->
+      </div>
+
+
+    </div>
+
+    <div class="fifth divblock" style="display: none;">
+      <div class="steps">
+        <div class="line-dots"></div>
+        <ul style="padding-left: 0px; display: flex; justify-content: space-around; margin-top: 1em">
+          <li class="first current" style="list-style: none" aria-disabled="false" aria-selected="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number"><img src="img/vector.svg" alt="check"></span>
+            </div>
+          </li>
+
+          <li class="disabled current" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">2</span>
+            </div>
+          </li>
+
+          <li class="disabled" style="list-style: none" aria-disabled="true">
+            <div class="title d-flex flex-column text-center position-relative">
+              <span class="title-number">3</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="divblock-bg">
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-lg-6">
+              <!--                    <div class="col-sm-6">-->
+              <input type="hidden" name="contact_record_new" id="contact_record_new">
+              <input type="hidden" name="mode_data" id="mode_data">
+              <input type="hidden" name="temp_id" id="temp_id">
+              <div>
+                <div>
+                  <div class=" fieldLabel">
+                    <label>
+                      <h3>Je souhaite aller dans le salon</h3>
+                    </label>
+                  </div>
+                  <div class=" fieldValue">
+                    <div class="form-group">
+                      <select class="js-example-basic-single form-control col-sm-12" name="Saloon" id="Saloon" required>
+                        <!-- <option value="">Saloon</option> -->
+                      </select>
+                      <span class="Saloon"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class=" fieldLabel">
+                    <label>
+                      <h3>pour la prestation suivante</h3>
+                    </label>
+                  </div>
+                  <div class=" fieldValue">
+                    <div class="form-group">
+                      <select class="select2 form-control col-sm-12" name="Service" id="Service">
+                        <!-- <option value="">Service</option> -->
+                      </select>
+                      <span class="Service"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="option_list" style="display: none;">
+                  <div class=" fieldLabel">
+                    <label>
+                      <h3>avec comme option</h3>
+                    </label>
+                  </div>
+                  <div class=" fieldValue">
+                    <div class="form-group">
+                      <select class="select2 form-control col-sm-12" name="Option" id="Option">
+                        <!-- <option value="">Option</option> -->
+                        <option value="Coupe">Coupe</option>
+                        <option value="Brushing">Brushing</option>
+                        <option value="Coupe + Brushing">Coupe + Brushing</option>
+                        <option value="Indécis(e)">Indécis(e)</option>
+
+                      </select>
+                      <span class="Option"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hairdresser" style="display: none;">
+                  <div class=" fieldLabel">
+                    <label>
+                      <h3>Select Hair dresser</h3>
+                    </label>
+                  </div>
+                  <div class=" fieldValue">
+                    <div class="form-group">
+                      <select class="select2 form-control col-sm-12" name="HairDresser" id="HairDresser">
+                        <option value="">HairDresser</option>
+                      </select>
+                      <span class="HairDresser"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-field">
+                  <div class=" fieldLabel">
+                    <label>
+                      <h3>Ajouter une precision</h3>
+                    </label>
+                  </div>
+                  <div class=" fieldValue">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="2" cols="65" name="note" id="note" maxlength="75"
+                        placeholder="Par exemple, si vous souhaitez passer avec un coiffeur en particulier"
+                        style="resize: none; height: 90px"></textarea>
+                      <span class="float-right text_dt"
+                        style="color: #808080; font-size: 12px; font-style: italic; display: none;"><span
+                          id="txt-length-left"></span><span>&nbsp;Caractères restants</span></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <!--                    <div class="col-sm-6">-->
+              <input type="text" id="demo" style="display: none;">
+              <br>
+              <div class=" fieldValue">
+                <div class="form-group">
+                  <!-- <textarea class="form-control" id="description" rows="2" cols="65" style="resize: none; height: 135px; color: black;" readonly></textarea> -->
+                  <div
+                    style="border-radius: 5px; padding: 5px; min-height: 5em; overflow: auto; backgound-color: #e9ecef; background-color: #e9ecef"
+                    class="divtext" id="description"></div>
+                </div>
+              </div>
+
+              <div id="loading" style="display: none;"><img src="img/loading3.gif" alt=""></div>
+              <div class="text-field-mobile" style="display: none">
+                <div class=" fieldLabel">
+                  <label>
+                    <h3>Ajouter une precision</h3>
+                  </label>
+                </div>
+                <div class="fieldValue">
+                  <div class="form-group">
+                    <textarea class="form-control" rows="2" cols="65" name="note-mobile" maxlength="75"
+                      placeholder="Par exemple, si vous souhaitez passer avec un coiffeur en particulier"
+                      id="note-mobile" style="resize: none; height: 90px"></textarea>
+
+                    <span class="float-right text_dt1"
+                      style="color: #808080; font-size: 12px; font-style: italic; display: none;"><span
+                        id="txt-length-left-mobile"></span><span>&nbsp;Caractères restants</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center">
+          <button type="button" class="btn" id="create_booking">Suivant</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <div class="sixthdiv divblock divblock-bg" style="display: none">
+      <div class="divblock__box">
+        <div style="display: flex">
+          <h2 style="display: flex; align-items: center; padding-right: 10px">Votre RDV est confirmé !</h2>
+          <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+        </div>
+        <div class="divblock__box-down">
+          <h3><span class="identical">Salon:</span>&nbsp;&nbsp;<span id="new_saloon"></span></h3>
+          <h3><span class="identical">Prestation:</span>&nbsp;&nbsp;<span id="new_service"></span></h3>
+          <h3><span class="identical">Option:</span>&nbsp;&nbsp;<span id="new_option"></span></h3>
+          <h3><span class="identical">Date:</span>&nbsp;&nbsp;<span id="new_date"></span></h3>
+          <h3><span class="identical">Horaires:</span>&nbsp;&nbsp;<span id="start_time_final"></span></h3>
+          <h3><span class="identical">Jour:</span>&nbsp;&nbsp;<span id="new_day"></span></h3>
+          <hr>
+          <h3><span class="identical">Nom:</span>&nbsp;&nbsp;<span id="new_lastname"></span></h3>
+          <h3><span class="identical">Prénom:</span>&nbsp;&nbsp;<span id="new_firstname"></span></h3>
+          <h3><span class="identical">Email:</span>&nbsp;&nbsp;<span id="new_email"></span></h3>
+          <h3><span class="identical">Téléphone:</span>&nbsp;&nbsp;<span id="new_mobile"></span></h3>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="sixthdiv-mobile-class" style="display: none;">
+
+      <div class="sixthdiv-referral-mobile divblock divblock-bg" style="display: none;">
+        <div class="divblock__box">
+          <div style="display: flex">
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Parrainez vos amis et gagnez des
+              réductions !</h2>
+            <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="">
+            <br>
+            <h3><span class="">Mon code parrain : </span><span class="my_referal_code"></span></h3>
+            <br>
+
+            <div style="text-align:center;">
+              <h3><span class="" style="text-align: center;"><u>Je parraine maintenant</u> :</span></h3>
+              <!-- <a href="" class="fa fa-facebook"></a>   -->
+              <!-- <a href="#" class="facebook_messenger" target="_blank">
+              <img src="https://pcdn.sharethis.com/wp-content/themes/sharethis-custom/assets/images/facebook-messengerimg copy.png" height="50px" width="50px">
+          </a> -->
+
+              <a href="#" class="whatsapp" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/whatsapp.png" style="height: 10%; width: 10%; display: inline;">
+              </a>
+
+              <a href="#" class="gmail" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/mail.png" style="height: 10%; width: 10%; display: inline;">
+              </a>
+
+              <a href="#" class="facebook" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/fb.png" style="height: 10%; width: 10%; display: inline;">
+              </a>
+
+              <a href="#" class="pinterest" aria-hidden="true" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/pinterest.png"
+                  style="height: 10%; width: 10%; display: inline;">
+              </a>
+
+              <a href="#" class="twitter" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/twitter.png" style="height: 10%; width: 10%; display: inline;">
+              </a>
+
+            </div>
+
+            <hr>
+            <div style="text-align: center;">
+              <h3><span class="">Chaque salon Biocoiff' a son propre système de récompense. Tous les salons Biocoiff' ne
+                  participent pas au programme de parrainage.</span></h3>
+              <!-- <h3><span style="padding-left: 30px;"><input style="background: #60c4c7; box-shadow: -8px 5px 20px rgb(96 196 199 / 46%); border-radius: 100px; font-size: 12px; color: white; font-family: MontserratSemiBold; border: none; padding: 10px;" type="button" name="more_info" class="more_info" value="Vérifier si mon salon est éligible"></span></h3> -->
+              <div style="justify-content: center;" class="">
+                <button type="button" id="more_info" class="btn more_info"
+                  style="width: 100% !important; font-size: 15px; color: white; font-family: MontserratSemiBold; border: none; padding: 5px;">Vérifier
+                  si mon salon est éligible</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sixthdiv-mobile divblock divblock-bg" style="display: none;">
+        <div class="divblock__box">
+          <div style="display: flex">
+            <span class="ref_enabled" style="display: none;"><i class="fa fa-share-alt" aria-hidden="true"></i></span>
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Votre RDV est confirmé !</h2>
+            <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="divblock__box-down">
+            <h3><span class="identical">Salon:</span>&nbsp;&nbsp;<span class="new_saloon"></span></h3>
+            <h3><span class="identical">Prestation:</span>&nbsp;&nbsp;<span class="new_service"></span></h3>
+            <h3><span class="identical Option">Option:</span>&nbsp;&nbsp;<span class="new_option Option"></span></h3>
+            <h3><span class="identical">Date:</span>&nbsp;&nbsp;<span class="new_date"></span></h3>
+            <h3><span class="identical">Horaires:</span>&nbsp;&nbsp;<span class="start_time_final"></span></h3>
+            <h3><span class="identical">Jour:</span>&nbsp;&nbsp;<span class="new_day"></span></h3>
+            <hr>
+            <h3><span class="identical">Nom:</span>&nbsp;&nbsp;<span class="new_lastname"></span></h3>
+            <h3><span class="identical">Prénom:</span>&nbsp;&nbsp;<span class="new_firstname"></span></h3>
+            <h3><span class="identical">Email:</span>&nbsp;&nbsp;<span class="new_email"></span></h3>
+            <h3><span class="identical">Téléphone:</span>&nbsp;&nbsp;<span class="new_mobile"></span></h3>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+    <!-- without share widget -->
+
+    <div class="share-widget">
+      <div class="sixthdiv-summary divblock divblock-bg" style="display: none;">
+        <div class="divblock__box">
+          <div style="display: flex">
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Votre RDV est confirmé !</h2>
+            <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="divblock__box-down">
+            <h3><span class="identical">Salon:</span>&nbsp;&nbsp;<span class="new_saloon"></span></h3>
+            <h3><span class="identical">Prestation:</span>&nbsp;&nbsp;<span class="new_service"></span></h3>
+            <h3><span class="identical Option">Option:</span>&nbsp;&nbsp;<span class="new_option Option"></span></h3>
+            <h3><span class="identical">Date:</span>&nbsp;&nbsp;<span class="new_date"></span></h3>
+            <h3><span class="identical">Horaires:</span>&nbsp;&nbsp;<span class="start_time_final"></span></h3>
+            <h3><span class="identical">Jour:</span>&nbsp;&nbsp;<span class="new_day"></span></h3>
+            <hr>
+            <h3><span class="identical">Nom:</span>&nbsp;&nbsp;<span class="new_lastname"></span></h3>
+            <h3><span class="identical">Prénom:</span>&nbsp;&nbsp;<span class="new_firstname"></span></h3>
+            <h3><span class="identical">Email:</span>&nbsp;&nbsp;<span class="new_email"></span></h3>
+            <h3><span class="identical">Téléphone:</span>&nbsp;&nbsp;<span class="new_mobile"></span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- desktop share -->
+    <div class="share-widget">
+      <div class="sixthdiv divblock-summ divblock-bg" style="display: none;">
+        <div class="divblock__box">
+          <div style="display: flex">
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Votre RDV est confirmé !</h2>
+            <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="divblock__box-down">
+            <h3><span class="identical">Salon:</span>&nbsp;&nbsp;<span class="new_saloon"></span></h3>
+            <h3><span class="identical">Prestation:</span>&nbsp;&nbsp;<span class="new_service"></span></h3>
+            <h3><span class="identical Option">Option:</span>&nbsp;&nbsp;<span class="new_option Option"></span></h3>
+            <h3><span class="identical">Date:</span>&nbsp;&nbsp;<span class="new_date"></span></h3>
+            <h3><span class="identical">Horaires:</span>&nbsp;&nbsp;<span class="start_time_final"></span></h3>
+            <h3><span class="identical">Jour:</span>&nbsp;&nbsp;<span class="new_day"></span></h3>
+            <hr>
+            <h3><span class="identical">Nom:</span>&nbsp;&nbsp;<span class="new_lastname"></span></h3>
+            <h3><span class="identical">Prénom:</span>&nbsp;&nbsp;<span class="new_firstname"></span></h3>
+            <h3><span class="identical">Email:</span>&nbsp;&nbsp;<span class="new_email"></span></h3>
+            <h3><span class="identical">Téléphone:</span>&nbsp;&nbsp;<span class="new_mobile"></span></h3>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="sixthdiv-referral divblock-ref divblock-bg" style="display: none;">
+        <div class="divblock__box">
+          <div style="display: flex">
+            <h2 style="display: flex; align-items: center; padding-right: 10px">Parrainez vos amis et gagnez des
+              réductions !</h2>
+            <img src="img/flowers.svg" alt="flowers" style="width: 44px; height: 54px; margin: 12px auto;">
+          </div>
+          <div class="">
+            <br>
+            <h3><span class="">Mon code parrain : <span class="my_referal_code"></span></span></h3>
+            <br>
+
+            <div style="text-align:center;">
+              <h3><span class="" style="text-align: center;"><u>Je parraine maintenant</u> :</span></h3>
+              <!-- <a href="" class="fa fa-facebook"></a>   -->
+              <!-- <a href="#" class="facebook_messenger" target="_blank">
+              <img src="https://pcdn.sharethis.com/wp-content/themes/sharethis-custom/assets/images/facebook-messengerimg copy.png" height="50px" width="50px">
+          </a> -->
+
+              <a href="#" class="whatsapp" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/whatsapp.png" style="height: 15%; width: 15%; display: inline;">
+              </a>
+
+              <a href="#" class="gmail" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/mail.png" style="height: 15%; width: 15%; display: inline;">
+              </a>
+
+              <a href="#" class="facebook" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/fb.png" style="height: 15%; width: 15%; display: inline;">
+              </a>
+
+              <a href="#" class="pinterest" aria-hidden="true" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/pinterest.png"
+                  style="height: 15%; width: 15%; display: inline;">
+              </a>
+
+              <a href="#" class="twitter" target="_blank">
+                <img src="https://www.biocoiff.com/imgs/twitter.png" style="height: 15%; width: 15%; display: inline;">
+              </a>
+            </div>
+
+            <hr>
+            <div style="text-align: center;">
+              <h3><span class="">Chaque salon Biocoiff' a son propre système de récompense. Tous les salons Biocoiff' ne
+                  participent pas au programme de parrainage.</span></h3>
+              <!-- <h3><span style="padding-left: 30px;"><input style="background: #60c4c7; box-shadow: -8px 5px 20px rgb(96 196 199 / 46%); border-radius: 100px; font-size: 16px; color: white; font-family: MontserratSemiBold; border: none; padding: 10px;" type="button" name="more_info" class="more_info" value="Vérifier si mon salon est éligible"></span></h3> -->
+              <div style="justify-content: center;" class="">
+                <button type="button" id="more_info" class="btn more_info"
+                  style="width: 100% !important; background: #60c4c7; box-shadow: -8px 5px 20px rgb(96 196 199 / 46%); border-radius: 100px; color: white; font-family: MontserratSemiBold; border: none; padding: 10px;">Vérifier
+                  si mon salon est éligible</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- <script src="js/main.js"></script> -->
+  <script>
+    (function ($) {
+      $.each(['show', 'hide'], function (i, ev) {
+        var el = $.fn[ev];
+        $.fn[ev] = function () {
+          this.trigger(ev);
+          return el.apply(this, arguments);
+        };
+      });
+    })(jQuery);
+
+    $(document).ready(function () {
+      //get the first block width 
+      var init_height = $(".firstdiv").height();
+      console.log('INIT' + init_height);
+      if (init_height <= 0)
+        init_height = 232;
+      var iframe = parent.document.getElementById("bookingfrm");
+      iframe.height = init_height + 200;
+      console.log(iframe);
+      $('.divblock').on('show', function () {
+        //now get the which element is there 
+        $('html, body').animate({
+          scrollTop: $(this).offset().top
+        }, 500);
+        var up_height = $(this).height();
+        iframe.height = up_height + 200;
+        /*parent.animate({
+          scrollTop: 0
+        }, 500);	*/
+        window.parent.ScrollToTopIFrame();
+      });
+
+    });
+  </script>
+</body>
+
+</html>
