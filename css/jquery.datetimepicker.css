@@ -77,9 +77,17 @@
     display: none;
   }
   .xdsoft_datetimepicker.xdsoft_inline {
-    width: 93vw;
+    width: 520px;
     margin-top: 0;
     margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 581px) {
+  .xdsoft_datetimepicker.xdsoft_inline {
+    width: 82vmin;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

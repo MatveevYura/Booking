@@ -242,7 +242,8 @@ height: auto;
 
   .seconddiv .input-box, .seconddiv2 .input-box {
     display: flex;
-    justify-content: center
+    justify-content: center;
+    align-items: center;
   }
 
   .seconddiv .form-control,
@@ -819,6 +820,7 @@ height: auto;
   display: flex;
   flex-direction: row;
 }
+
 
 @media (max-width: 991px) {
   .divblock-bg .container-fluid .row{
