@@ -603,7 +603,9 @@ jQuery(document).ready(function () {
 
             jQuery('#twilio_check').show();
             jQuery('#twilio_check').prop('disabled', false);
+            //MY CODE
             jQuery('.fifth_twilio').show()[0].scrollIntoView();
+            //MY CODE
 
             var url = window.location.href;
             var split_url = url.split("#");
@@ -788,8 +790,9 @@ jQuery(document).ready(function () {
           var ref_feature = result.ref_feature;
 
 
-
-          jQuery('.sixthdiv-mobile-class').show();
+          //MY CODE
+          jQuery('.sixthdiv-mobile-class').show()[0].scrollIntoView();
+          //MY CODE
           if (ref_feature == 'apply') {
             jQuery('.sixthdiv-summary').hide();
             jQuery('.sixthdiv').show();
